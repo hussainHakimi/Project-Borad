@@ -39,7 +39,7 @@ class Component {
 
 class Tooltip  extends Component{
     constructor(closeNotifierFunction){
-        super('active-projects', true);
+        super();
         this.closeNotifier = closeNotifierFunction;
         this.create();
 
