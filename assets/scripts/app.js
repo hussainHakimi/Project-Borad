@@ -15,10 +15,33 @@ class DOMHelper {
     }
 }
 
+class Component {
+    constructor(hostElementId, insertBefore = false){
+        if(hostElementId){
+            this.hostElementId = document.getElementById(hostElementId);
+        }else{
+            this.hostElementId = document.body;
+        }
+    }
+    detach() {
+        if(this.element){
+            this.element.remove();
+        }
+    }
 
-class Tooltip {
+    attach(){
+        this.hostElementId.insertAdjacentElement(
+            this.insertBefore ? 'afterbegin' : 'beforeend',
+            this.element
+        );
+    }
+}
+
+class Tooltip  extends Component{
     constructor(closeNotifierFunction){
+        super('active-projects', true);
         this.closeNotifier = closeNotifierFunction;
+        this.create();
 
     }
 
@@ -27,17 +50,12 @@ class Tooltip {
         this.closeNotifier();
     }
 
-    detach() {
-        this.element.remove();
-    }
-
-    attach(){
+    create(){
         const tooltipElement = document.createElement('div');
         tooltipElement.className = 'card';
         tooltipElement.textContent = 'Domy Data';
         tooltipElement.addEventListener('click', this.closeTooltip);
         this.element = tooltipElement;
-        document.body.append(tooltipElement);
     }
 }
 
