@@ -1,10 +1,10 @@
 
 class DOMHelper {
-    // static clearEventListeners(element){
-    //     const clonedElement = element.cloneNode(true);
-    //     element.replaceWith(clonedElement);
-    //     return clonedElement; 
-    // }
+    static clearEventListeners(element){
+        const clonedElement = element.cloneNode(true);
+        element.replaceWith(clonedElement);
+        return clonedElement; 
+    }
 
 
     static moveElement(elementId, newDestinationSelector){
