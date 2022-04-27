@@ -9,7 +9,7 @@ class DOMHelper {
     const element = document.getElementById(elementId);
     const destinationElement = document.querySelector(newDestinationSelector);
     destinationElement.append(element);
-    element.scrollIntoView({behavior: 'smooth'});
+    element.scrollIntoView({ behavior: 'smooth' });
   }
 }
 
@@ -58,6 +58,7 @@ class Tooltip extends Component {
     const tooltipBody = document.importNode(tooltipTemplate.content, true);
     tooltipBody.querySelector('p').textContent = this.text;
     tooltipElement.append(tooltipBody);
+
     const hostElPosLeft = this.hostElement.offsetLeft;
     const hostElPosTop = this.hostElement.offsetTop;
     const hostElHeight = this.hostElement.clientHeight;
@@ -67,7 +68,7 @@ class Tooltip extends Component {
     const y = hostElPosTop + hostElHeight - parentElementScrolling - 10;
 
     tooltipElement.style.position = 'absolute';
-    tooltipElement.style.left = x + 'px';
+    tooltipElement.style.left = x + 'px'; // 500px
     tooltipElement.style.top = y + 'px';
 
     tooltipElement.addEventListener('click', this.closeTooltip);
@@ -91,9 +92,13 @@ class ProjectItem {
     }
     const projectElement = document.getElementById(this.id);
     const tooltipText = projectElement.dataset.extraInfo;
-    const tooltip = new Tooltip(() => {
-      this.hasActiveTooltip = false;
-    }, tooltipText, this.id);
+    const tooltip = new Tooltip(
+      () => {
+        this.hasActiveTooltip = false;
+      },
+      tooltipText,
+      this.id
+    );
     tooltip.attach();
     this.hasActiveTooltip = true;
   }
@@ -166,21 +171,18 @@ class App {
       activeProjectsList.addProject.bind(activeProjectsList)
     );
 
-    const timer = setTimeout(this.startAnalytic, 3000);
-    document.getElementById('stop-analytic-btn').addEventListener('click', () =>{
-      clearTimeout(timer);
+    const timerId = setTimeout(this.startAnalytics, 3000);
+
+    document.getElementById('stop-analytics-btn').addEventListener('click', () => {
+      clearTimeout(timerId);
     });
-
-
-    // document.getElementById('start-analytic-btn').addEventListener('click', this.startAnalytic());
   }
 
-
-  static startAnalytic(){
-    const analyticScript = document.createElement('script');
-    analyticScript.src = 'assets/scripts/analytic.js';
-    analyticScript.defer = true;
-    document.head.append(analyticScript);
+  static startAnalytics() {
+    const analyticsScript = document.createElement('script');
+    analyticsScript.src = 'assets/scripts/analytics.js';
+    analyticsScript.defer = true;
+    document.head.append(analyticsScript);
   }
 }
 
