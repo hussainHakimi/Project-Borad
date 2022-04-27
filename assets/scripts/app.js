@@ -170,6 +170,9 @@ class App {
     document.getElementById('stop-analytic-btn').addEventListener('click', () =>{
       clearTimeout(timer);
     });
+
+
+    document.getElementById('start-analytic-btn').addEventListener('click', this.startAnalytic());
   }
 
 
