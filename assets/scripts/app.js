@@ -172,7 +172,7 @@ class App {
     });
 
 
-    document.getElementById('start-analytic-btn').addEventListener('click', this.startAnalytic());
+    // document.getElementById('start-analytic-btn').addEventListener('click', this.startAnalytic());
   }
 
 
