@@ -148,8 +148,33 @@ class ProjectList {
       );
     }
     console.log(this.projects);
+    this.connectDroppable();
   }
 
+  connectDroppable(){
+    const list = document.querySelector(`#${this.type}-projects ul`);
+    list.addEventListener('dragenter', event => {
+      if(event.dataTransfer.type[0] === 'text/plain'){
+        list.parentElement.classList.add('droppable');
+        event.preventDefault();
+      }
+    });
+    list.addEventListener('dragover', event => {
+      if(event.dataTransfer.type[0] === 'text/plain'){
+        event.preventDefault();
+      }
+    });
+
+    list.addEventListener('dragleave', event => {
+      if(event.relatedTarget.closest(`#${this.type}-projects ul`) !== list){
+        list.parentElement.classList.remove('droppable');
+      }
+    });
+
+    list.addEventListener('drop', event => {
+      const prjId = event.dataTransfer.getData('text/plain');
+    });
+  }
   setSwitchHandlerFunction(switchHandlerFunction) {
     this.switchHandler = switchHandlerFunction;
   }
